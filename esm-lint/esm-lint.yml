@@ -1,7 +1,8 @@
 name: ESM
 
 env:
-  importer: "import YourModuleHere from 'your-module-here'"
+  IMPORT_TEXT: import YourModuleHere from
+  NPM_MODULE_NAME: your-module-here
 
 on:
   pull_request:
@@ -30,7 +31,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
       - run: npm install ./artifact
-      - run: echo $importer > index.js
+      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.js
       - run: webpack ./index.js
       - run: cat dist/main.js
 
@@ -40,7 +41,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
       - run: npm install ./artifact
-      - run: echo $importer > index.js
+      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.js
       - run: npx parcel@1 build index.js
       - run: cat dist/index.js
 
@@ -50,7 +51,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
       - run: npm install ./artifact rollup@2 @rollup/plugin-node-resolve
-      - run: echo $importer > index.js
+      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.js
       - run: npx rollup -p node-resolve index.js
 
   Snowpack:
@@ -59,10 +60,10 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
       - run: echo '{}' > package.json
-      - run: echo $importer > index.js
+      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.js
       - run: npm install ./artifact
       - run: npx snowpack@2 build
-      - run: cat build/web_modules/webext-options-sync.js
+      - run: cat build/web_modules/$NPM_MODULE_NAME.js
 
   TypeScript:
     runs-on: ubuntu-latest
@@ -70,7 +71,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
       - run: npm install ./artifact
-      - run: echo $importer > index.ts
+      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.ts
       - run: tsc index.ts
       - run: cat index.js
 
@@ -82,7 +83,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '13.x'
-      - run: 'echo ''{"type": "module"}'' > package.json'
-      - run: echo $importer > index.js
+      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.mjs
       - run: npm install ./artifact
-      - run: node index.js
+      - run: node index.mjs

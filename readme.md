@@ -23,6 +23,13 @@ Package/ESM compatibility linter, details in https://github.com/sindresorhus/pro
 npx ghat fregante/ghatemplates/esm-lint
 ```
 
+You can also exclude some tests irrelevant to your project:
+
+```sh
+npx ghat fregante/ghatemplates/esm-lint --exclude jobs.TypeScript --exclude jobs.Node
+```
+
+
 ## [node](./node/ci.yml)
 
 Common Node workflows. You can install them all at once with

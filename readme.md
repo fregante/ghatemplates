@@ -23,7 +23,7 @@ Package/ESM compatibility linter, details in https://github.com/sindresorhus/pro
 npx ghat fregante/ghatemplates/esm-lint
 ```
 
-## [node](./node)
+## [node](./node/ci.yml)
 
 Common Node workflows. You can install them all at once with
 
@@ -31,20 +31,8 @@ Common Node workflows. You can install them all at once with
 npx ghat fregante/ghatemplates/node
 ```
 
-### [node/xo.yml](./node/xo.yml)
+or exclude some
 
 ```sh
-npx ghat fregante/ghatemplates/node/xo.yml
-```
-
-### [node/ava.yml](./node/ava.yml)
-
-```sh
-npx ghat fregante/ghatemplates/node/ava.yml
-```
-
-### [node/build.yml](./node/build.yml)
-
-```sh
-npx ghat fregante/ghatemplates/node/build.yml
+npx ghat fregante/ghatemplates/node --exclude jobs.Test --exclude jobs.Build
 ```

@@ -19,5 +19,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: install
-        run: if [ -z ${{ hashFiles('package-lock.json', 'npm-shrinkwrap.json') }} ]; then npm install; else npm ci; fi;
+        run: npm ci || npm install
       - run: npm test

@@ -29,7 +29,6 @@ You can also exclude some tests irrelevant to your project:
 npx ghat fregante/ghatemplates/esm-lint --exclude jobs.TypeScript --exclude jobs.Node
 ```
 
-
 ## [node](./node/ci.yml)
 
 Common Node workflows. You can install them all at once with

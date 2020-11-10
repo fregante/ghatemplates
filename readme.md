@@ -22,3 +22,29 @@ Package/ESM compatibility linter, details in https://github.com/sindresorhus/pro
 ```sh
 npx ghat fregante/ghatemplates/esm-lint
 ```
+
+## [node](./node)
+
+Common Node workflows. You can install them all at once with
+
+```sh
+npx ghat fregante/ghatemplates/node
+```
+
+### [node/xo.yml](./node/xo.yml)
+
+```sh
+npx ghat fregante/ghatemplates/node/xo.yml
+```
+
+### [node/ava.yml](./node/ava.yml)
+
+```sh
+npx ghat fregante/ghatemplates/node/ava.yml
+```
+
+### [node/build.yml](./node/build.yml)
+
+```sh
+npx ghat fregante/ghatemplates/node/build.yml
+```

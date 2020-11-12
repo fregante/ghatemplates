@@ -1,5 +1,5 @@
 env:
-  SCRIPT_NAME: build
+  SCRIPT_NAME: format
 
 # DO NOT EDIT BELOW - use `npx ghat fregante/ghatemplates/is-dist-up-to-date`
 

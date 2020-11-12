@@ -50,7 +50,7 @@ If your distribution/built files need to be committed, this workflow will ensure
 This is useful when creating GitHub Actions or simply to verify that files have been formatted (a better `prettier --check`, basically)
 
 ```sh
-npx ghat fregante/ghatemplates/is-build-committed
+npx ghat fregante/ghatemplates/is-dist-up-to-date
 ```
 
 Requirements:

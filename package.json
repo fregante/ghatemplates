@@ -1,5 +1,5 @@
 {
 	"scripts": {
-		"format": "npx prettier@2 --write --single-quote ."
+		"format": "npx prettier@2 --write --use-tabs --single-quote ."
 	}
 }

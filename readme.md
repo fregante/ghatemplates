@@ -56,3 +56,19 @@ npx ghat fregante/ghatemplates/is-dist-up-to-date
 Requirements:
 
 - A `build` npm script (customizable)
+
+## [action-release](./action-release/action-release.yml)
+
+Via [workflow_dispatch](https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch) you can automate the release and tag updating of a GitHub Action
+
+1. Creates the specified tag
+2. Creates the release and changelog with [notlmn/release-with-changelog](https://github.com/notlmn/release-with-changelog)
+3. Creates or updates the current major tag (like v1, v2, etc)
+
+```sh
+npx ghat fregante/ghatemplates/action-release
+```
+
+Requirements:
+
+- A `build` npm script (customizable)

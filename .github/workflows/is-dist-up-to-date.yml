@@ -1,0 +1,21 @@
+env:
+  SCRIPT_NAME: format
+
+# DO NOT EDIT BELOW - use `npx ghat fregante/ghatemplates/is-dist-up-to-date`
+
+name: Verify Built Files
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  Verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install
+        run: npm ci || npm install
+      - run: npm run ${{ env.SCRIPT_NAME }}
+      - name: verify that distribution/index.js is up to date
+        run: git diff --exit-code

@@ -42,3 +42,17 @@ or exclude some
 ```sh
 npx ghat fregante/ghatemplates/node --exclude jobs.Test --exclude jobs.Build
 ```
+
+## [is-dist-up-to-date](./is-dist-up-to-date/is-dist-up-to-date.yml)
+
+If your distribution/built files need to be committed, this workflow will ensure that they are.
+
+This is useful when creating GitHub Actions or simply to verify that files have been formatted (a better `prettier --check`, basically)
+
+```sh
+npx ghat fregante/ghatemplates/is-dist-up-to-date
+```
+
+Requirements:
+
+- A `build` npm script (customizable)

@@ -68,7 +68,3 @@ Via [workflow_dispatch](https://github.blog/changelog/2020-07-06-github-actions-
 ```sh
 npx ghat fregante/ghatemplates/action-release
 ```
-
-Requirements:
-
-- A `build` npm script (customizable)

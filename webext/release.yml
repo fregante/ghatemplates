@@ -17,7 +17,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 20
-      - run: npm ci
+      - name: install
+        run: npm ci || npm install
       - run: npm test
       - uses: fregante/daily-version-action@v1
         name: Create tag if necessary
@@ -40,7 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm install
+      - name: install
+        run: npm ci || npm install
       - run: npm run build
       - name: Update extension’s meta
         run: npx dot-json distribution/manifest.json version ${{ needs.Version.outputs.version }}

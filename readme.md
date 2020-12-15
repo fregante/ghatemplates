@@ -57,6 +57,22 @@ Requirements:
 
 - A `build` npm script (customizable)
 
+## [npm-publish](./npm-publish/npm-publish.yml)
+
+Via [workflow_dispatch](https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch) you can automate the release to npm:
+
+1. Runs `npm version *` with your specified version
+2. Publishes to npm
+3. Creates the release and changelog with [notlmn/release-with-changelog](https://github.com/notlmn/release-with-changelog)
+
+```sh
+npx ghat fregante/ghatemplates/npm-publish
+```
+
+Requirements:
+
+- A `NPM_TOKEN` secret
+
 ## [action-release](./action-release/action-release.yml)
 
 Via [workflow_dispatch](https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch) you can automate the release and tag updating of a GitHub Action

@@ -48,7 +48,7 @@ jobs:
         run: npm ci || npm install
       - run: npm run build
       - name: Update extension’s meta
-        run: npx dot-json $DIRECTORY/manifest.json version ${{ needs.Version.outputs.version }}
+        run: npx dot-json@1 $DIRECTORY/manifest.json version ${{ needs.Version.outputs.version }}
       - name: Submit
         run: |
           case ${{ matrix.command }} in

@@ -1,5 +1,8 @@
 name: Release
 
+env:
+  DIRECTORY: distribution
+
 on:
   workflow_dispatch:
   # You can manually trigger a deployment on GitHub.com
@@ -45,8 +48,17 @@ jobs:
         run: npm ci || npm install
       - run: npm run build
       - name: Update extension’s meta
-        run: npx dot-json distribution/manifest.json version ${{ needs.Version.outputs.version }}
-      - run: npm run release:${{ matrix.command }}
+        run: npx dot-json $DIRECTORY/manifest.json version ${{ needs.Version.outputs.version }}
+      - name: Submit
+        run: |
+          case ${{ matrix.command }} in
+            chrome)
+              cd $DIRECTORY && npx chrome-webstore-upload-cli@1 upload --auto-publish
+              ;;
+            firefox)
+              cd $DIRECTORY && npx web-ext-submit@5
+              ;;
+          esac
         env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}

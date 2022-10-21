@@ -2,6 +2,7 @@ name: Release
 
 env:
   DIRECTORY: distribution
+  PROJECT_NAME: extension
 
 on:
   workflow_dispatch:
@@ -32,14 +33,12 @@ jobs:
         id: daily-version
       - if: steps.daily-version.outputs.created
         name: Create release
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            await github.request(`POST /repos/${{ github.repository }}/releases`, {
-              tag_name: "${{ steps.daily-version.outputs.version }}",
-              generate_release_notes: true
-            });
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd $DIRECTORY
+          zip -r "$PROJECT_NAME-local-install.zip" *
+          gh release create "${{ steps.daily-version.outputs.version }}" --generate-notes "$PROJECT_NAME.zip"
 
   Submit:
     needs: Version

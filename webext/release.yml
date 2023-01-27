@@ -37,8 +37,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd $DIRECTORY
-          zip -r "$PROJECT_NAME-local-install.zip" *
-          gh release create "${{ steps.daily-version.outputs.version }}" --generate-notes "$PROJECT_NAME.zip"
+          FILENAME="$PROJECT_NAME-local-install.zip"
+          zip -r "$FILENAME" *
+          gh release create "${{ steps.daily-version.outputs.version }}" --generate-notes "$FILENAME"
 
   Submit:
     needs: Version

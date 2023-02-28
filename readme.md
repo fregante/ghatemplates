@@ -63,7 +63,7 @@ Via [workflow_dispatch](https://github.blog/changelog/2020-07-06-github-actions-
 
 1. Runs `npm version *` with your specified version
 2. Publishes to npm
-3. Creates the release and changelog with [fregante/release-with-changelog](https://github.com/fregante/release-with-changelog)
+3. Creates the release and changelog with gh-cli
 
 ```sh
 npx ghat fregante/ghatemplates/npm-publish
@@ -78,7 +78,7 @@ Requirements:
 Via [workflow_dispatch](https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch) you can automate the release and tag updating of a GitHub Action
 
 1. Creates the specified tag
-2. Creates the release and changelog with [fregante/release-with-changelog](https://github.com/fregante/release-with-changelog)
+2. Creates the release and changelog with gh-cli
 3. Creates or updates the current major tag (like v1, v2, etc)
 
 ```sh

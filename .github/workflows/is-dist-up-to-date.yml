@@ -1,14 +1,13 @@
 env:
   SCRIPT_NAME: format
 
-# DO NOT EDIT BELOW - use `npx ghat fregante/ghatemplates/is-dist-up-to-date`
+# FILE GENERATED WITH: npx ghat fregante/ghatemplates/is-dist-up-to-date
+# SOURCE: https://github.com/fregante/ghatemplates
 
 name: Verify Built Files
-
 on:
   - pull_request
   - push
-
 jobs:
   Verify:
     runs-on: ubuntu-latest

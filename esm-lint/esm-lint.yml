@@ -92,7 +92,7 @@ jobs:
       - uses: actions/download-artifact@v3
       - uses: actions/setup-node@v4
         with:
-          node-version: '14.x'
+          node-version-file: package.json
       - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.mjs
       - run: npm install ./artifact
       - run: node index.mjs

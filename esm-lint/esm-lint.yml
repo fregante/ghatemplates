@@ -3,6 +3,7 @@ name: ESM
 env:
   IMPORT_TEXT: import YourModuleHere from
   NPM_MODULE_NAME: your-module-here
+  NODE_VERSION: 18
 
 on:
   pull_request:
@@ -92,7 +93,7 @@ jobs:
       - uses: actions/download-artifact@v3
       - uses: actions/setup-node@v4
         with:
-          node-version-file: package.json
+          node-version: ${{ env.NODE_VERSION }}
       - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.mjs
       - run: npm install ./artifact
       - run: node index.mjs

@@ -26,6 +26,13 @@ jobs:
         with:
           path: package
 
+  Publint:
+    runs-on: ubuntu-latest
+    needs: Pack
+    steps:
+      - uses: actions/download-artifact@v4
+      - run: npx publint ./artifact
+
   Webpack:
     runs-on: ubuntu-latest
     needs: Pack

@@ -43,7 +43,7 @@ jobs:
       - run: npm install ./artifact
       - run: echo "$IMPORT_STATEMENT" > index.js
       - run: |
-        echo '{"@parcel/resolver-default": {"packageExports": true}}' > package.json
+          echo '{"@parcel/resolver-default": {"packageExports": true}}' > package.json
       - run: npx parcel@2 build index.js
       - run: cat dist/index.js
 

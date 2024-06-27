@@ -1,8 +1,7 @@
 name: ESM
 
 env:
-  IMPORT_TEXT: import YourModuleHere from
-  NPM_MODULE_NAME: your-module-here
+  IMPORT_STATEMENT: import YourModuleHere from "your-module-here"
 
 on:
   pull_request:
@@ -18,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm install
+      - run: npm install --omit=dev
       - run: npm run build --if-present
       - run: npm pack --dry-run
       - run: npm pack | tail -1 | xargs -n1 tar -xzf
@@ -31,8 +30,8 @@ jobs:
     needs: Pack
     steps:
       - uses: actions/download-artifact@v4
-      - run: npm install ./artifact
-      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.js
+      - run: npm install --omit=dev ./artifact
+      - run: echo "$IMPORT_STATEMENT" > index.js
       - run: webpack --entry ./index.js
       - run: cat dist/main.js
 
@@ -41,9 +40,10 @@ jobs:
     needs: Pack
     steps:
       - uses: actions/download-artifact@v4
-      - run: npm install ./artifact
-      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.js
-      - run: "echo '{\"@parcel/resolver-default\": {\"packageExports\": true}}' > package.json"
+      - run: npm install --omit=dev ./artifact
+      - run: echo "$IMPORT_STATEMENT" > index.js
+      - run: |
+          echo '{"@parcel/resolver-default": {"packageExports": true}}' > package.json
       - run: npx parcel@2 build index.js
       - run: cat dist/index.js
 
@@ -52,8 +52,8 @@ jobs:
     needs: Pack
     steps:
       - uses: actions/download-artifact@v4
-      - run: npm install ./artifact rollup@2 @rollup/plugin-node-resolve
-      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.js
+      - run: npm install --omit=dev ./artifact rollup@2 @rollup/plugin-node-resolve
+      - run: echo "$IMPORT_STATEMENT" > index.js
       - run: npx rollup -p node-resolve index.js
 
   Vite:
@@ -61,8 +61,8 @@ jobs:
     needs: Pack
     steps:
       - uses: actions/download-artifact@v4
-      - run: npm install ./artifact
-      - run: echo '<script type="module">${{ env.IMPORT_TEXT }} "${{ env.NPM_MODULE_NAME }}"</script>' > index.html
+      - run: npm install --omit=dev ./artifact
+      - run: echo '<script type="module">$IMPORT_STATEMENT</script>' > index.html
       - run: npx vite build
       - run: cat dist/assets/*
 
@@ -72,8 +72,8 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
       - run: echo '{}' > package.json
-      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.js
-      - run: npm install ./artifact
+      - run: echo "$IMPORT_STATEMENT" > index.js
+      - run: npm install --omit=dev ./artifact
       - run: npx esbuild --bundle index.js
 
   TypeScript:
@@ -81,11 +81,12 @@ jobs:
     needs: Pack
     steps:
       - uses: actions/download-artifact@v4
-      - run: npm install ./artifact @sindresorhus/tsconfig
-      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.ts
-      - run: |
-          echo '{"extends":"@sindresorhus/tsconfig","files":["index.ts"]}' > tsconfig.json
-      - run: tsc
+      - run: npm install --omit=dev ./artifact @sindresorhus/tsconfig
+      - run: echo "$IMPORT_STATEMENT" > index.ts
+      - run: >
+          echo '{"extends":"@sindresorhus/tsconfig","files":["index.ts"]}' >
+          tsconfig.json
+      - run: npx --package typescript -- tsc
       - run: cat distribution/index.js
 
   Node:
@@ -96,6 +97,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: artifact/package.json
-      - run: echo "${{ env.IMPORT_TEXT }} '${{ env.NPM_MODULE_NAME }}'" > index.mjs
-      - run: npm install ./artifact
+      - run: echo "$IMPORT_STATEMENT" > index.mjs
+      - run: npm install --omit=dev ./artifact
       - run: node index.mjs

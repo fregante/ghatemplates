@@ -65,7 +65,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
-      - run: git archive --output source.zip HEAD
+      - run: git archive --output source.zip HEAD ":!test" ":!.github" && unzip -l source.zip
       - run: npx web-ext@8 sign --channel listed --upload-source-code ../source.zip
         working-directory: artifact
         env:

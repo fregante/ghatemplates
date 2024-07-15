@@ -13,9 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: npm ci || npm install
-      - name: Run build/format script
-        run: npm run ${{ inputs.script_name }}
+      - if: ${{ hashFiles('package-lock.json') != ''}}
+        run: npm ci
+      - if: ${{ hashFiles('package-lock.json') == '' }}
+        run: npm install
+      - run: npm run ${{ inputs.script_name }}
       - name: Verify that built files are up to date
         run: git diff --exit-code

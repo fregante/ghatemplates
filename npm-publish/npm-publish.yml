@@ -26,6 +26,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: git push --follow-tags
+      # `git tag` enables support for keywords: `npm version patch`
       - run: gh release create "$(git tag --points-at HEAD)" --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}

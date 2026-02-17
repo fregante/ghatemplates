@@ -71,7 +71,7 @@ npx ghat fregante/ghatemplates/npm-publish
 
 Requirements:
 
-- A `NPM_TOKEN` secret
+- [Trusted publishing configured on npm](https://docs.npmjs.com/generating-provenance-statements#configuring-npm-to-trust-github-actions-as-an-oidc-provider)
 
 ## [action-release](./action-release/action-release.yml)
 
